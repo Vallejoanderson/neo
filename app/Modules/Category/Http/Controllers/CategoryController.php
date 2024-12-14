@@ -3,16 +3,17 @@
 namespace App\Modules\Category\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
-use App\Modules\Category\Application\CategoryService;
+use App\Modules\Category\Domain\CategoryServiceInterface;
 
 class CategoryController extends Controller
 {
-    private CategoryService $categoryService;
+    private CategoryServiceInterface $categoryService;
 
     public function __construct()
     {
-        $this->categoryService = new CategoryService();
+        $this->categoryService = App::make(CategoryServiceInterface::class);
     }
 
     public function get(Request $request)

@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Modules\Category\Infrastructure\CategoryRepository;
+use App\Modules\Category\Domain\CategoryRepositoryInterface;
 use App\Modules\Category\Infrastructure\CategoryRepositoryMySQL;
+
+use App\Modules\Category\Domain\CategoryServiceInterface;
+use App\Modules\Category\Application\CategoryServiceGeneric;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,8 +16,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(CategoryRepository::class, function() {
+        /* Repositories */
+        $this->app->singleton(CategoryRepositoryInterface::class, function() {
             return new CategoryRepositoryMySQL();
+        });
+
+        /* Services */
+        $this->app->singleton(CategoryServiceInterface::class, function() {
+            return new CategoryServiceGeneric();
         });
     }
 

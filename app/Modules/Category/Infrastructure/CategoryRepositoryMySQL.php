@@ -2,11 +2,10 @@
 
 namespace App\Modules\Category\Infrastructure;
 
-use Illuminate\Support\Facades\DB;
 use App\Modules\Category\Domain\Category;
-use App\Modules\Category\Infrastructure\CategoryRepository;
+use App\Modules\Category\Domain\CategoryRepositoryInterface;
 
-class CategoryRepositoryMySQL implements CategoryRepository
+class CategoryRepositoryMySQL implements CategoryRepositoryInterface
 {
     public function get()
     {
