@@ -19,7 +19,6 @@ class CategoryController extends Controller
     public function get(Request $request)
     {
         $categories = $this->categoryService->get();
-
         return response()->json([
             'data' => $categories,
             'message' => 'Categories retrieved successfully',
