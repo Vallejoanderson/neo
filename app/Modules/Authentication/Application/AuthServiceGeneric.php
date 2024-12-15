@@ -24,5 +24,21 @@ class AuthServiceGeneric implements AuthServiceInterface
         return response()->json(compact('user', 'token'), 201);
     }
 
-    public function login() {}
+    public function login($request) {
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+        ]);
+    }
 }
