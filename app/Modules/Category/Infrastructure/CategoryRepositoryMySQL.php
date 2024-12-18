@@ -15,4 +15,17 @@ class CategoryRepositoryMySQL implements CategoryRepositoryInterface
             throw $th;
         }
     }
+
+    public function save($request)
+    {
+        try {
+            return Category::create([
+                'name' => $request->name,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

@@ -25,4 +25,9 @@ class CategoryController extends Controller
             'status' => 200
         ]);
     }
+
+    public function save(Request $request)
+    {
+        return $this->categoryService->save($request);
+    }
 }

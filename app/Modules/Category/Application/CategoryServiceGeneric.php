@@ -19,4 +19,13 @@ class CategoryServiceGeneric implements CategoryServiceInterface
         $response = $this->repository->get();
         return $response;
     }
+
+    public function save($request) {
+        $response = $this->repository->save($request);
+        return response()->json([
+            'data' => $response,
+            'message' => 'Category created successfully',
+            'status' => 201
+        ]);
+    }
 }

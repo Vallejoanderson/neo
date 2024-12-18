@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Authentication\Http\Controllers\AuthController;
 use App\Modules\Category\Http\Controllers\CategoryController;
+use App\Modules\Subcategory\Http\Controllers\SubcategoryController;
 
 
 /*
@@ -29,6 +30,12 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('category')->middleware('auth:api')->group(function () {
         Route::get('/', [CategoryController::class, 'get']);
+        Route::post('/', [CategoryController::class, 'save']);
+    });
+
+    Route::prefix('subcategory')->middleware('auth:api')->group(function () {
+        Route::get('/', [SubcategoryController::class, 'findAll']);
+        Route::post('/', [SubcategoryController::class, 'save']);
     });
 });
 
