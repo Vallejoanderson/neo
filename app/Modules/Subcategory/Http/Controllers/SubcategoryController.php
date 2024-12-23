@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Modules\Subcategory\Domain\SubcategoryServiceInterface;
+use App\Modules\Subcategory\Mappers\CategoryMapper;
 
 class SubcategoryController extends Controller
 {
@@ -21,7 +22,20 @@ class SubcategoryController extends Controller
         $subcategories = $this->subcategoryService->findAll();
         return response()->json([
             'data' => $subcategories,
-            'message' => 'Subcategory retrieved successfully',
+            'message' => 'Subcategories retrieved successfully',
+            'status' => 200
+        ]);
+    }
+
+    public function findByParams(Request $request)
+    {
+        $mapper = CategoryMapper::fromRequest($request);
+        $category = $mapper->map();
+
+        $subcategories = $this->subcategoryService->findByParams($category);
+        return response()->json([
+            'data' => $subcategories,
+            'message' => 'Subcategories retrieved successfully',
             'status' => 200
         ]);
     }

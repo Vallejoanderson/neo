@@ -5,6 +5,7 @@ namespace App\Modules\Subcategory\Application;
 use App\Modules\Subcategory\Domain\SubcategoryServiceInterface;
 use App\Modules\Subcategory\Domain\SubcategoryRepositoryInterface;
 use Illuminate\Support\Facades\App;
+use App\Modules\Subcategory\Dtos\CategoryDto;
 
 class SubcategoryServiceGeneric implements SubcategoryServiceInterface
 {
@@ -17,6 +18,12 @@ class SubcategoryServiceGeneric implements SubcategoryServiceInterface
 
     public function findAll() {
         $response = $this->repository->findAll();
+        return $response;
+    }
+
+    public function findByParams(CategoryDto $category)
+    {
+        $response = $this->repository->findByParams($category);
         return $response;
     }
 
