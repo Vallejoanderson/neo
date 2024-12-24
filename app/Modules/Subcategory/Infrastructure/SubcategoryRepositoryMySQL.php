@@ -17,7 +17,7 @@ class SubcategoryRepositoryMySQL implements SubcategoryRepositoryInterface
         }
     }
 
-    public function findByParams(CategoryDto $category)
+    public function findByCategory(CategoryDto $category)
     {
         try {
             $category_id = $category->id;

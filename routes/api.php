@@ -35,7 +35,7 @@ Route::prefix('v1')->group(function () {
 
     Route::prefix('subcategory')->middleware('auth:api')->group(function () {
         Route::get('all', [SubcategoryController::class, 'findAll']);
-        Route::get('search', [SubcategoryController::class, 'findByParams']);
+        Route::get('category/{category_id}', [SubcategoryController::class, 'findByCategory']);
         Route::post('', [SubcategoryController::class, 'save']);
     });
 });

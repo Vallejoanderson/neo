@@ -4,32 +4,23 @@ namespace App\Modules\Subcategory\Mappers;
 
 use App\Modules\Subcategory\Dtos\CategoryDto;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use stdClass;
 
 class CategoryMapper
 {
-    public ?int $category_id;
-
-    public function __construct(?int $categoryId)
-    {
-        $this->category_id = $categoryId;
-    }
-
-    public function map(): CategoryDto {
-        $this->validate();
+    public function map($request): CategoryDto {
+        $this->validate($request);
         $categoryDto = new CategoryDto();
-        $categoryDto->id = $this->category_id;
+        $categoryDto->id = $request->category_id;
         return $categoryDto;
     }
 
-    public function validate()
+    public function validate($request)
     {
         $rules = [ 'category_id' => 'required|integer' ];
 
         $messages = [ 'category_id.required' => 'Category id is required' ];
 
-        $validator = Validator::make([ 'category_id' => $this->category_id ], $rules, $messages);
+        $validator = Validator::make($request->route()->parameters(), $rules, $messages);
 
         if($validator->fails()){
             return response()->json([
@@ -37,12 +28,5 @@ class CategoryMapper
                 'messages' => $validator->messages()->toArray()
             ]);
         }
-    }
-
-    public static function fromRequest(Request $request): self
-    {
-        return new self(
-            $request->query('category_id')
-        );
     }
 }

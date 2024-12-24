@@ -10,7 +10,7 @@ use App\Modules\Subcategory\Mappers\CategoryMapper;
 
 class SubcategoryController extends Controller
 {
-    private SubcategoryServiceInterface $subcategoryService;
+    private SubcategoryServiceInterface  $subcategoryService;
 
     public function __construct()
     {
@@ -27,12 +27,12 @@ class SubcategoryController extends Controller
         ]);
     }
 
-    public function findByParams(Request $request)
+    public function findByCategory(Request $request)
     {
-        $mapper = CategoryMapper::fromRequest($request);
-        $category = $mapper->map();
+        $mapper = new CategoryMapper();
+        $category = $mapper->map($request);
 
-        $subcategories = $this->subcategoryService->findByParams($category);
+        $subcategories = $this->subcategoryService->findByCategory($category);
         return response()->json([
             'data' => $subcategories,
             'message' => 'Subcategories retrieved successfully',

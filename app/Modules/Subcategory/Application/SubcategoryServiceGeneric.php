@@ -21,9 +21,9 @@ class SubcategoryServiceGeneric implements SubcategoryServiceInterface
         return $response;
     }
 
-    public function findByParams(CategoryDto $category)
+    public function findByCategory(CategoryDto $category)
     {
-        $response = $this->repository->findByParams($category);
+        $response = $this->repository->findByCategory($category);
         return $response;
     }
 
