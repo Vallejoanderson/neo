@@ -13,6 +13,9 @@ use App\Modules\Category\Infrastructure\CategoryRepositoryMySQL;
 use App\Modules\Subcategory\Domain\SubcategoryRepositoryInterface;
 use App\Modules\Subcategory\Infrastructure\SubcategoryRepositoryMySQL;
 
+use App\Modules\Product\Domain\ProductRepositoryInterface;
+use App\Modules\Product\Infrastructure\ProductRepositoryMySQL;
+
 use App\Modules\Authentication\Domain\AuthServiceInterface;
 use App\Modules\Category\Domain\CategoryServiceInterface;
 
@@ -21,6 +24,9 @@ use App\Modules\Category\Application\CategoryServiceGeneric;
 
 use App\Modules\Subcategory\Domain\SubcategoryServiceInterface;
 use App\Modules\Subcategory\Application\SubcategoryServiceGeneric;
+
+use App\Modules\Product\Domain\ProductServiceInterface;
+use App\Modules\Product\Application\ProductServiceGeneric;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +48,10 @@ class AppServiceProvider extends ServiceProvider
             return new SubcategoryRepositoryMySQL();
         });
 
+        $this->app->singleton(ProductRepositoryInterface::class, function() {
+            return new ProductRepositoryMySQL();
+        });
+
         /* Services */
         $this->app->singleton(AuthServiceInterface::class, function() {
             return new AuthServiceGeneric();
@@ -53,6 +63,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(SubcategoryServiceInterface::class, function() {
             return new SubcategoryServiceGeneric();
+        });
+
+        $this->app->singleton(ProductServiceInterface::class, function() {
+            return new ProductServiceGeneric();
         });
     }
 
