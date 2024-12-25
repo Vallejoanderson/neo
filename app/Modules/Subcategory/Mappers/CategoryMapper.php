@@ -22,7 +22,8 @@ class CategoryMapper
 
         $validator = Validator::make($request->route()->parameters(), $rules, $messages);
 
-        if($validator->fails()){
+        if($validator->fails())
+        {
             return response()->json([
                 'status' => 'error',
                 'messages' => $validator->messages()->toArray()

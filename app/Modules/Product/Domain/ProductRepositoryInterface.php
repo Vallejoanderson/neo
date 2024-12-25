@@ -11,4 +11,5 @@ interface ProductRepositoryInterface
     public function index(SearchProductDto $request);
     public function save(ProductDto $request);
     public function update(UpdateProductDto $request);
+    public function delete(int $id);
 }

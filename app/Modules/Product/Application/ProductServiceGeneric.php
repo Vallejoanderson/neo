@@ -29,4 +29,8 @@ class ProductServiceGeneric implements ProductServiceInterface
     public function update(UpdateProductDto $request) {
         return $this->productRepository->update($request);
     }
+
+    public function delete(int $id) {
+        return $this->productRepository->delete($id);
+    }
 }

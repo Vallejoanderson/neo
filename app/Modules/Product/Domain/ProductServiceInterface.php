@@ -13,4 +13,6 @@ interface ProductServiceInterface {
     public function save(ProductDto $request);
 
     public function update(UpdateProductDto $request);
+
+    public function delete(int $id);
 }

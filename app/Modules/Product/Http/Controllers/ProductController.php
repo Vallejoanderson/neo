@@ -9,6 +9,7 @@ use App\Modules\Product\Domain\ProductServiceInterface;
 use App\Modules\Product\Mappers\SaveProductMapper;
 use App\Modules\Product\Mappers\SearchProductMapper;
 use App\Modules\Product\Mappers\UpdateProductMapper;
+use App\Modules\Product\Mappers\DeleteProductMapper;
 
 class ProductController extends Controller
 {
@@ -46,6 +47,18 @@ class ProductController extends Controller
             'product' => $response,
             'success' => true,
             'message' => 'Product updated successfully']
+        );
+    }
+
+    public function delete(Request $request)
+    {
+        $mapper = new DeleteProductMapper();
+        $product_id = $mapper->map($request);
+        $this->productService->delete($product_id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product deleted successfully']
         );
     }
 }

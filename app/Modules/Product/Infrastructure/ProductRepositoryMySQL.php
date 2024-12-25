@@ -62,4 +62,16 @@ class ProductRepositoryMySQL implements ProductRepositoryInterface
             throw $th;
         }
     }
+
+
+    public function delete(int $id)
+    {
+        try {
+            $product = Product::find($id);
+            $product->delete();
+            return $product;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }
