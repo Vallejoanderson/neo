@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Product\Domain\ProductServiceInterface;
 use App\Modules\Product\Mappers\SaveProductMapper;
 use App\Modules\Product\Mappers\SearchProductMapper;
+use App\Modules\Product\Mappers\UpdateProductMapper;
 
 class ProductController extends Controller
 {
@@ -32,5 +33,19 @@ class ProductController extends Controller
         $product = $mapper->map($request);
 
         return $this->productService->save($product);
+    }
+
+    public function update(Request $request)
+    {
+        $mapper = new UpdateProductMapper();
+        $product = $mapper->map($request);
+
+        $response = $this->productService->update($product);
+
+        return response()->json([
+            'product' => $response,
+            'success' => true,
+            'message' => 'Product updated successfully']
+        );
     }
 }

@@ -7,6 +7,7 @@ use App\Modules\Product\Domain\ProductServiceInterface;
 use App\Modules\Product\Domain\ProductRepositoryInterface;
 use App\Modules\Product\Dtos\ProductDto;
 use App\Modules\Product\Dtos\SearchProductDto;
+use App\Modules\Product\Dtos\UpdateProductDto;
 
 class ProductServiceGeneric implements ProductServiceInterface
 {
@@ -23,5 +24,9 @@ class ProductServiceGeneric implements ProductServiceInterface
 
     public function save(ProductDto $product) {
         return $this->productRepository->save($product);
+    }
+
+    public function update(UpdateProductDto $request) {
+        return $this->productRepository->update($request);
     }
 }
