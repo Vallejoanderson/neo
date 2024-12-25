@@ -2,10 +2,11 @@
 
 namespace App\Modules\Product\Application;
 
+use Illuminate\Support\Facades\App;
 use App\Modules\Product\Domain\ProductServiceInterface;
 use App\Modules\Product\Domain\ProductRepositoryInterface;
 use App\Modules\Product\Dtos\ProductDto;
-use Illuminate\Support\Facades\App;
+use App\Modules\Product\Dtos\SearchProductDto;
 
 class ProductServiceGeneric implements ProductServiceInterface
 {
@@ -16,7 +17,7 @@ class ProductServiceGeneric implements ProductServiceInterface
         $this->productRepository = App::make(ProductRepositoryInterface::class);
     }
 
-    public function index($request) {
+    public function index(SearchProductDto $request) {
         return $this->productRepository->index($request);
     }
 

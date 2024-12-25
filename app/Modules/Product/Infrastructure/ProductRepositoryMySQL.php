@@ -4,13 +4,27 @@ namespace App\Modules\Product\Infrastructure;
 
 use App\Modules\Product\Domain\Product;
 use App\Modules\Product\Dtos\ProductDto;
+use App\Modules\Product\Dtos\SearchProductDto;
 use App\Modules\Product\Domain\ProductRepositoryInterface;
 
 class ProductRepositoryMySQL implements ProductRepositoryInterface
 {
-    public function index($request)
+    public function index(SearchProductDto $search)
     {
-        return Product::where('subcategory_id', $request->subcategory_id)->get();
+        $categoryId = $search->subcategory_id;
+        $searchText = $search->search_text;
+
+        try {
+            return Product::when($categoryId, function ($query, $categoryId) {
+                                    $query->where('subcategory_id', $categoryId);
+                                })
+                          ->when($searchText, function ($query, $searchText) {
+                                    $query->where('name', 'like', '%' . $searchText . '%');
+                                })
+                            ->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function save(ProductDto $product)

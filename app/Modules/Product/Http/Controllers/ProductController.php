@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Modules\Product\Domain\ProductServiceInterface;
 use App\Modules\Product\Mappers\SaveProductMapper;
+use App\Modules\Product\Mappers\SearchProductMapper;
 
 class ProductController extends Controller
 {
-    private ProductServiceInterface  $productService;
+    private ProductServiceInterface $productService;
 
     public function __construct()
     {
@@ -19,7 +20,10 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        return $this->productService->index($request);
+        $mapper = new SearchProductMapper();
+        $search = $mapper->map($request);
+
+        return $this->productService->index($search);
     }
 
     public function save(Request $request)
